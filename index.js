@@ -1,3 +1,6 @@
+var userData = '{"str": "Happy birthday!", "errorMessage": "Something wrong!", "isBirthday":true,"age":42,"greeting":"Hello", "name": "John"}';
+var user = JSON.parse(userData);
+console.log(user);
 var str = 'Happy birthday!';
 var errorMessage = 'Something wrong!';
 var isBirthday = true;

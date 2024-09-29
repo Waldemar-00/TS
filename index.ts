@@ -1,3 +1,14 @@
+let userData = '{"str": "Happy birthday!", "errorMessage": "Something wrong!", "isBirthday":true,"age":42,"greeting":"Hello", "name": "John"}'
+let user: {
+  str: string,
+  errorMessage: string,
+  isBirthday: boolean,
+  age: number,
+  greeting: string,
+  name: string
+} = JSON.parse( userData )
+console.log(user);
+
 let str: string = 'Happy birthday!'
 const errorMessage = 'Something wrong!'
 let isBirthday: boolean = true
