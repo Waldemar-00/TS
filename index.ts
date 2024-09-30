@@ -1,3 +1,5 @@
+import { create } from "domain";
+
 let userData = '{"str": "Happy birthday!", "errorMessage": "Something wrong!", "isBirthday":true,"age":42,"greeting":"Hello", "name": "John"}'
 let user: {
   str: string,
@@ -26,8 +28,57 @@ return undefined
 }
 console.log(logGreeting(true, greeting))
 logCongrats( 'some', undefined, 101, 'Something wrong :-(!' )
-
-function logGreeting ( isBirthday: boolean | null | undefined, greeting: string ): string | void
+const createError = (msg: string): never =>
 {
-  if(isBirthday) return greeting + '!'
+  throw new Error()
 }
+function logGreeting ( isBirthday: boolean | null | undefined, greeting: string ): string | never
+{
+  if ( isBirthday ) return greeting + '!'
+  else return createError('Something went wrong!')
+}
+
+
+//null, undefined, void
+
+const someNull: null = null;
+const someNullValue: any = null;
+const someUndefined: undefined = undefined;
+const someUndefinedValue: any = undefined;
+
+//void
+
+const action = (): void => { }
+const any: any = action()
+const v: void = action()
+
+//never
+
+function nevering (): never //!always need to assign or you get type: void
+{
+  throw new Error()
+}
+
+const fromNevering: never = nevering()
+const fromNeveringAny: any = nevering()
+const number: number = nevering()
+const string: string = nevering()
+const boolean: boolean = nevering()
+const undefined_: undefined = nevering()
+const null_: null = nevering()
+const void_: void = nevering()
+
+//unknown
+const num: number = 10
+const str_1: string = 'some'
+const bool: boolean = false
+let unknown_5: unknown = 11
+const unknown: unknown = nevering()
+const unknown_: unknown = undefined
+const unknown_1: unknown = null
+const unknown_2: unknown = any
+const unknown_3: unknown = v
+const unknown_num: unknown = num
+const unknown_str: unknown = str_1
+const unknown_bool: unknown = bool
+const unknown_unknown: unknown = unknown_5
