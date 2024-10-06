@@ -1,4 +1,3 @@
-//object
 var userData = {
     name: 'ULADZIMIR',
     age: 42,

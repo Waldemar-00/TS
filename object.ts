@@ -1,6 +1,15 @@
 //object
-
-const userData = {
+type User = {
+  name: string;
+  age: number;
+  isBirthday: boolean;
+  messages: {
+    error: string;
+    smth: string;
+    oops: string;
+  };
+}
+const userData: User = {
   name: 'ULADZIMIR',
   age: 42,
   isBirthday: false,
