@@ -19,3 +19,17 @@ var someData = {
     some: 'some',
     other: 3000
 };
+var other = {
+    name: 'Boris',
+    method: function () { console.log(this.name); },
+};
+if (other.method)
+    other.method();
+//* Non-Null Non-Undefined operator
+other.method(); //* your rules
+var value;
+nonNullNonUndefined();
+console.log(value + 100); //* you take problems yourself
+function nonNullNonUndefined() {
+    value = 100;
+}
