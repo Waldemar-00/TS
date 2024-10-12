@@ -1,5 +1,19 @@
 //* readonly properties in the enum literal
 
+// colors
+
+enum Colors
+{
+  red = '#ff0000',
+  green = '#00ff00',
+  blue = '#0000ff',
+}
+//! console.log(Colors[0]) not will work - no property '0'!!!
+console.log(Colors.red.toLocaleUpperCase())
+
+// colors
+
+
 enum Cars
 {
   Audi = 'Audi',

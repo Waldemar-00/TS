@@ -62,7 +62,7 @@ const someData: Some = {
 
 interface Other
 {
-  name: string,
+  readonly name: string,
   surname?: string,
   method?: () => void,
 }
@@ -71,6 +71,10 @@ const other: Other = {
   name: 'Boris',
   method: function () {console.log(this.name)},
 }
+
+//* other.name = 'John'
+//!Cannot assign to 'name' because it is a read-only property
+
 if ( other.method ) other.method()
 //* Non-Null Non-Undefined operator
 other!.method!() //* your rules
@@ -83,3 +87,18 @@ function nonNullNonUndefined ()
 {
   value = 100
 }
+
+//* readonly
+class Animal
+{
+  readonly name: string = 'Animal'
+}
+const ports: readonly number[] = [ 3000, 3001, 8080 ]
+//* ports[ 0 ] = 7001
+// ! Index signature in type 'readonly number[]' only permits reading.
+
+const tuplePorts: readonly [ ...number[] ] = [ 3000, 3001, 8080 ]
+//* tuplePorts[ 0 ] = 1000
+//! Index signature in type 'readonly number[]' only permits reading.
+//* tuplePorts.push( 9000 )
+//! Property 'push' does not exist on type 'readonly number[]'.
