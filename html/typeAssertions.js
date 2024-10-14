@@ -57,3 +57,7 @@ var dataOfFetch4 = {
 };
 //* example with angle brackets
 fetchData(dataOfFetch4.url, dataOfFetch4.method);
+//* getElementById, getElementByName(name='up), getElementByClassName and e.d.
+var paragraph = document.getElementById('paragraph');
+if (paragraph)
+    paragraph.style.color = 'green';

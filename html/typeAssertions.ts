@@ -11,6 +11,7 @@ console.log(ourScriptElement, "OUR JS");
 
 const div = document.querySelector( '.div' ) as HTMLElement
 //! Event below happens later than the document.addEventListener!!! It will wait all assets
+
 window.onload = function ()
 {
   if(div) div.style.backgroundColor = 'grey'
@@ -74,4 +75,8 @@ const dataOfFetch4 = {
   method: "GET"
 }
 //* example with angle brackets
-fetchData( dataOfFetch4.url, <"GET">dataOfFetch4.method)
+fetchData( dataOfFetch4.url, <"GET"> dataOfFetch4.method )
+
+//* getElementById, getElementByName(name='up), getElementByClassName and e.d.
+const paragraph = document.getElementById( 'paragraph' )
+if(paragraph) paragraph.style.color = 'green'
