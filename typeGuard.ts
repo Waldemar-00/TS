@@ -102,7 +102,7 @@ function repairvehicle (vehicle: Vehicle):(string|number)[]
       return [vehicle.detail]
     default:
       const smth: never = vehicle //* The never will work if you add a new vehicle, because the types will not be the same. And you see the Error. It's custom TYPE GUARD.
-      return vehicle
+      return smth
   }
 }
 
