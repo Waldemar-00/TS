@@ -1,10 +1,11 @@
+"use strict";
 // Request
 // {
 //     animal: 'cat' | 'dog' | 'bird',
 //     breed: string,
 //     sterilized?: string
 // }
-var responseAvailable = {
+const responseAvailable = {
     status: 'available',
     data: {
         animal: 'cat',
@@ -14,7 +15,7 @@ var responseAvailable = {
         age: 2
     }
 };
-var responseNoOptions = {
+const responseNoOptions = {
     status: 'not available',
     data: {
         message: 'No such animal',
@@ -26,7 +27,7 @@ function checkAnimalData(data) {
         return data.data;
     }
     else {
-        return "".concat(data.data.message, ", you can try in ").concat(data.data.nextUpdateIn);
+        return `${data.data.message}, you can try in ${data.data.nextUpdateIn}`;
     }
 }
 console.log(checkAnimalData(responseAvailable));

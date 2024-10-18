@@ -1,5 +1,6 @@
+"use strict";
 //* TYPE GUARD
-var car_1 = {
+const car_1 = {
     entity: 'car',
     engine: 'Mersedes-223871',
     wheels: {
@@ -7,17 +8,17 @@ var car_1 = {
         wheelType: 'winter'
     }
 };
-var ship = {
+const ship = {
     entity: 'ship',
     engine: 'BMW',
     sail: 'Two boards'
 };
-var airplane = {
+const airplane = {
     entity: 'airplane', //* literal
     engine: 'Ford-7865',
     wings: 'Star-line'
 };
-var newVehicle = {
+const newVehicle = {
     entity: 'smth',
     engine: 'XV-876',
     detail: 'Double wing'
@@ -36,14 +37,14 @@ function repairvehicle(vehicle) {
         case 'smth':
             return [vehicle.detail];
         default:
-            var smth = vehicle; //* The never will work if you add a new vehicle, because the types will not be the same. And you see the Error. It's custom TYPE GUARD.
-            return vehicle;
+            const smth = vehicle; //* The never will work if you add a new vehicle, because the types will not be the same. And you see the Error. It's custom TYPE GUARD.
+            return smth;
     }
 }
-console.log.apply(console, repairvehicle(car_1));
-console.log.apply(console, repairvehicle(ship));
-console.log.apply(console, repairvehicle(airplane));
-console.log.apply(console, repairvehicle(newVehicle));
+console.log(...repairvehicle(car_1));
+console.log(...repairvehicle(ship));
+console.log(...repairvehicle(airplane));
+console.log(...repairvehicle(newVehicle));
 function isCar(car) {
     //* return 'wheels' in car
     return car.wheels !== undefined;

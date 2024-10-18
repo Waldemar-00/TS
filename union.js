@@ -1,9 +1,10 @@
+"use strict";
 //*Union
-var something = 100;
+let something = 100;
 //console.log(typeof something);
 something = 'str';
 //console.log(typeof something);
-var someArray = [1, 2, 3, 4, 5];
+let someArray = [1, 2, 3, 4, 5];
 someArray = ['a', 'b', 'c', 'd', 'e'];
 //console.log(someArray);
 //! let otherArray: (string[] | number[]) = [1, 2, 3, 4, 5, 'a', 'b', 'c']
@@ -22,7 +23,7 @@ someMsg_1(['Hello', 'Bro']);
 someMsg_1(47);
 function someMsg_1(msg) {
     if (Array.isArray(msg))
-        console.log("".concat(msg[0], ", ").concat(msg[1]));
+        console.log(`${msg[0]}, ${msg[1]}`);
     else
         console.log(msg.toExponential());
     console.log(msg);

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div class="forms">
+    <form id='email'>
+      <label>
+        Email address
+        <input type="email" name='email' required>
+        <p>We'll never share your email with anyone else.</p>
+      </label>
+      <button>Submit</button>
+    </form>
+    <form id='comment'>
+      <label>
+        Title
+        <br>
+        <input type="text" name='title' required>
+      </label>
+      <label>
+        Put some text here
+        <br>
+        <textarea name="textarea" placeholder="It was a dark and stormy night...
+" required></textarea>
+      </label>
+      <label class='check'>
+          <input type="checkbox" name='check'> Checked?
+      </label>
+      <button>Submit</button>
+  </form>
+  </div>
+  <script src='./index.js'></script>
+</body>
+</html>

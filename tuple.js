@@ -1,15 +1,14 @@
+"use strict";
 // Tuple
-var tuple = [true, 'some', 100];
+const tuple = [true, 'some', 100];
 //* tuple[0] = 'false' not work
 tuple[0] = false;
 console.log(tuple[0]);
 tuple.push(44);
 //*console.log(tuple[3]); not work
-for (var _i = 0, tuple_1 = tuple; _i < tuple_1.length; _i++) {
-    var tup = tuple_1[_i];
-    console.log(tup);
-} //work
-var last = tuple.pop();
+for (let tup of tuple)
+    console.log(tup); //work
+const last = tuple.pop();
 console.log(last);
 // type Matches = [string, boolean];
 // const arsenal: Matches = ['Man City', true];

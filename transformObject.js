@@ -1,4 +1,5 @@
-var project = {
+"use strict";
+const project = {
     name: 'Project',
     budget: 30000
 };
@@ -7,7 +8,7 @@ var project = {
 //   mainBudget: 1000000
 // }
 // console.log( mainProject ) //! { name: 'Project', budget: 30000, mainBudget: 1000000 }
-var mainProject = {
+const mainProject = {
     name: project.name,
     mainBudget: 1000000
 };

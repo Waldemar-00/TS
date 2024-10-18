@@ -1,5 +1,6 @@
+"use strict";
 // главный объект со всеми данными, должен подходить под формат TotalWarehouse
-var totalData = {
+const totalData = {
     jackets: 5,
     hats: "empty",
     socks: "empty",
@@ -20,10 +21,10 @@ var totalData = {
 // "We need this items: hats, socks, cookers"
 // Товары через запятую, в конце её не должно быть. Пробел после двоеточия, в конце строки его нет.
 function printReport(data) {
-    var allKeys = Object.keys(data);
-    var emptyKeys = allKeys.filter(function (key) { return data[key] === "empty"; });
+    const allKeys = Object.keys(data);
+    const emptyKeys = allKeys.filter((key) => data[key] === "empty");
     if (emptyKeys.length)
-        return "We need this items: ".concat(emptyKeys.join(", "));
+        return `We need this items: ${emptyKeys.join(", ")}`;
     else
         return "Everything fine";
 }

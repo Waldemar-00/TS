@@ -1,15 +1,16 @@
+"use strict";
 function calcArea(a, b) {
     if (b) {
-        var rect = {
-            a: a,
-            b: b,
+        const rect = {
+            a,
+            b,
             area: a * b
         };
         return rect;
     }
     else {
-        var square = {
-            a: a,
+        const square = {
+            a,
             area: a * a
         };
         return square;

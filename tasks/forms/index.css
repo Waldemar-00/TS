@@ -1,0 +1,48 @@
+#email, #comment {
+  border: 1px solid #c7bfbf;
+  padding: 1rem 3rem;
+}
+#email {
+  display: inline-grid;
+  width: 350px;
+  grid-template-rows: repeat(2, 1fr);
+}
+#comment {
+  display: inline-grid;
+  width: 350px;
+  grid-template-rows: repeat(3, 1fr);
+  margin-left: 1rem;
+}
+#email label {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  align-items: flex-end;
+}
+#email input {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #c7bfbf;
+  border-radius: 0.2rem;
+}
+#email p {
+  margin: 0;
+  align-self: flex-start;
+}
+.check {
+  margin-top: 15px;
+}
+#email button, #comment button    {
+  width: 80px;
+  height: 30px;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: rgb(69, 69, 250);
+  color: #fff;
+  margin-top: 12px;
+}
+#comment button {
+  margin-top: -41px;
+}
+#comment textarea {
+  width: 320px;
+  height: 60px;
+}

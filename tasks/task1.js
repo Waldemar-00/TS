@@ -1,3 +1,4 @@
+"use strict";
 //* Перечисление с названием TypesOfMedia, которое включает строчные типы video, audio
 var TypesOfMedia;
 (function (TypesOfMedia) {
@@ -13,13 +14,12 @@ var FormatsOfMedia;
     FormatsOfMedia["flv"] = ".flv";
     FormatsOfMedia["webM"] = ".webM";
 })(FormatsOfMedia || (FormatsOfMedia = {}));
-function playMedia(_a) {
-    var _b = _a === void 0 ? {
-        name: "example",
-        type: TypesOfMedia.video,
-        format: FormatsOfMedia.webM,
-    } : _a, name = _b.name, type = _b.type, format = _b.format, subtitles = _b.subtitles, marks = _b.marks;
-    var marksLog;
+function playMedia({ name, type, format, subtitles, marks } = {
+    name: "example",
+    type: TypesOfMedia.video,
+    format: FormatsOfMedia.webM,
+}) {
+    let marksLog;
     if (Array.isArray(marks)) {
         marksLog = marks.join(', ');
     }
@@ -29,10 +29,13 @@ function playMedia(_a) {
     else {
         marksLog = "Unsupported type of marks";
     }
-    console.log("Media: ".concat(name, "\n    Format: ").concat(format, " is ").concat(type, "\n    Marks: ").concat(marksLog !== null && marksLog !== void 0 ? marksLog : '', "\n    Subtitles: ").concat(subtitles !== null && subtitles !== void 0 ? subtitles : "none"));
+    console.log(`Media: ${name}
+    Format: ${format} is ${type}
+    Marks: ${marksLog !== null && marksLog !== void 0 ? marksLog : ''}
+    Subtitles: ${subtitles !== null && subtitles !== void 0 ? subtitles : "none"}`);
     return "Media started";
 }
-var statusMedia = playMedia({
+const statusMedia = playMedia({
     name: "WoW",
     format: FormatsOfMedia.webM,
     type: TypesOfMedia.video,

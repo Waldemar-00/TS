@@ -1,3 +1,4 @@
+"use strict";
 // let userData = '{"str": "Happy birthday!", "errorMessage": "Something wrong!", "isBirthday":true,"age":42,"greeting":"Hello", "name": "John"}'
 // let user: {
 //   str: string,
@@ -8,7 +9,6 @@
 //   name: string
 // } = JSON.parse( userData )
 // console.log(user);
-var _a;
 // let str: string = 'Happy birthday!'
 // const errorMessage = 'Something wrong!'
 // let isBirthday: boolean = true
@@ -34,14 +34,14 @@ var _a;
 //   else return createError('Something went wrong!')
 // }
 //null, undefined, void
-var someNull = null;
-var someNullValue = null;
-var someUndefined = undefined;
-var someUndefinedValue = undefined;
+const someNull = null;
+const someNullValue = null;
+const someUndefined = undefined;
+const someUndefinedValue = undefined;
 //void
-var action = function () { };
-var any = action();
-var v = action();
+const action = () => { };
+const any = action();
+const v = action();
 //never
 // function nevering (): never //!always need to assign or you get type: void
 // {
@@ -70,11 +70,11 @@ var v = action();
 // const unknown_bool: unknown = bool
 // const unknown_unknown: unknown = unknown_5
 //Symbol
-var sym = Symbol('sym');
-var data = (_a = {},
-    _a[sym] = 100,
-    _a);
+const sym = Symbol('sym');
+const data = {
+    [sym]: 100
+};
 console.log(data[sym]);
 //BigInt
-var bigint = BigInt(111);
+const bigint = BigInt(111);
 console.log(bigint);
