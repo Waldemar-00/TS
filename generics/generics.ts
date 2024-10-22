@@ -101,5 +101,20 @@ function printType<Type> (arg: Type): Type
 {
   return arg
 }
-console.log( printType( stringPrint ) )
-console.log(printType(numberPrint))
+//* console.log( printType( stringPrint ) )
+//* console.log(printType(numberPrint))
+
+function generalization<T, N> ( data: T, number: N ):string
+{
+  switch (typeof data) {
+    case 'string':
+      return `${ data.toLocaleUpperCase() }!`
+    case 'number':
+      return `${ +number + +(data.toFixed(2))}`
+    default:
+      return `No text, no number!`
+  }
+}
+
+console.log( generalization<number, number>(100.171261921, 17) )
+console.log( generalization<string, number>('Hello Dude', 17) )
