@@ -1,5 +1,9 @@
+//* NodeList
+const listDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll('div')
 const str: string = 'some string'
 const newType = str as any as number
+let lst: NodeListOf<HTMLDivElement> = document.querySelectorAll('div');
+let arr00: HTMLDivElement[] = Array.from(lst);
 //* console.log(newType)
 
 const h1: HTMLElement = document.querySelector( 'h1' ) as HTMLElement
