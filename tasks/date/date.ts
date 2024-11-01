@@ -41,49 +41,62 @@ console.log(raiseToDegree(10, 10))
 
 // 3 Сделайте функцию, которая параметрами принимает любое количество чисел, а возвращает их сумму.
 
+function amount<T>(...rest: T[]): T
+{
+  return rest.reduce( ( acc, current ) => (acc as number) + (current as number) as T)
+}
+console.log( amount<number>( 1, 2, 3, 4, 5 ) )
+console.log( amount<string>( '1', '1', '1', '1', '1' ) )
+
 // 4 Укажите переменной тип функции:
-// let func = function(text: string): void {
-// 	alert(text);
-// };
-
+let func: <T>(text: T) => void = function<T>(text: T): void {
+	console.log(text)
+}
+func<string>( 'Hello' )
+func<number>(1000)
 // 5 Объявите тип функции, параметром принимающей число и массив чисел, а результатом возвращающий массив чисел.
-
+function pushNumber<T> ( num: T, arr: T[] ): T[]
+{
+  arr.push(num)
+  return arr
+}
+console.log( pushNumber<number>( 100, [ 1, 2 ]))
 // 6 Найдите и исправьте ошибки, допущенные в следующем коде:
 
-// type Func = (num: number) => number;
+type Funct = (num: number) => number
 
-// function make(arr: number, func: Func): number {
-// 	let sum = 0;
+function maker(arr: number[], func: Funct): number {
+	let sum = 0;
 
-// 	for (let elem of arr) {
-// 		sum += func(elem);
-// 	}
+	for (let elem of arr) {
+		sum += func(elem)
+	}
 
-// 	return sum;
-// }
+	return sum;
+}
 
-// let res: number[] = make([1, 2, 3], function(num): string {
-// 	return num ** 2;
-// });
+let res00: number = maker([1, 2, 3], function(num): number {
+	return num ** 2;
+});
 
-// console.log( res );
+console.log( res00 );
 
-// type Func = (num: number) => number;
+type Func = (num: number) => number;
 
-// function make(arr: number[], func: Func): number[] {
-// 	return arr.map(function(elem: number) {
-// 		return func(elem);
-// 	});
-// }
+function make(arr: number[], func: Func): number[] {
+	return arr.map(function(elem) {
+		return func(elem);
+	});
+}
 
-// let res: number[] = make([1, 2, 3], function(num: number): number {
-// 	return num ** 2;
-// });
+let res01: number[] = make([1, 2, 3], function(num: number): number {
+	return num ** 2;
+});
 
-// console.log(res);
+console.log(res01)
 
 // 7 Перепишите следующий JavaScript код на TypeScript вариант:
-// let arr = [1, 2, 3];
-// let res = arr.map(num => num ** 2);
+let arr001: number[] = [1, 2, 3];
+let res001: number[] = arr001.map(num => num ** 2);
 
-// console.log(res);
+console.log(res001);
