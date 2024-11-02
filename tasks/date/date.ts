@@ -40,14 +40,29 @@ console.log(raiseToDegree(10, 10))
 
 
 // 3 Сделайте функцию, которая параметрами принимает любое количество чисел, а возвращает их сумму.
-
+//! Fucking TS
 function amount<T>(...rest: T[]): T
 {
-  return rest.reduce( ( acc, current ) => (acc as number) + (current as number) as T)
+  return rest.reduce( ( acc, current ) => ((acc as number) + (current as number)) as T)
 }
 console.log( amount<number>( 1, 2, 3, 4, 5 ) )
 console.log( amount<string>( '1', '1', '1', '1', '1' ) )
+console.log( amount<object>( [ 1 ], [ 'str' ], [ 3 ], [ 2 ], [ 7 ] ) )
+//! Fucking TS
 
+type ProcessedValue<T> = T extends string ? string : number
+function processValue<T extends string | number> ( value: T ): ProcessedValue<T> | void
+{
+  if ( typeof value === 'string' )
+  {
+    return value.toUpperCase() as ProcessedValue<T>
+  } else if ( typeof value === 'number' )
+  {
+    return ( value * 2 ) as ProcessedValue<T>
+  }
+}
+console.log(processValue('string'))
+console.log(processValue(100))
 // 4 Укажите переменной тип функции:
 let func: <T>(text: T) => void = function<T>(text: T): void {
 	console.log(text)

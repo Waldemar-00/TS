@@ -30,15 +30,27 @@ function raiseToDegree(num, degree) {
 console.log(raiseToDegree(10));
 console.log(raiseToDegree(10, 10));
 // 3 Сделайте функцию, которая параметрами принимает любое количество чисел, а возвращает их сумму.
+//! Fucking TS
 function amount() {
     var rest = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         rest[_i] = arguments[_i];
     }
-    return rest.reduce(function (acc, current) { return acc + current; });
+    return rest.reduce(function (acc, current) { return (acc + current); });
 }
 console.log(amount(1, 2, 3, 4, 5));
 console.log(amount('1', '1', '1', '1', '1'));
+console.log(amount([1], ['str'], [3], [2], [7]));
+function processValue(value) {
+    if (typeof value === 'string') {
+        return value.toUpperCase();
+    }
+    else if (typeof value === 'number') {
+        return (value * 2);
+    }
+}
+console.log(processValue('string'));
+console.log(processValue(100));
 // 4 Укажите переменной тип функции:
 var func = function (text) {
     console.log(text);
