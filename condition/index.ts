@@ -91,11 +91,3 @@ const user01: User01<'created'> = {
 const user02: User01<Date> = {
   created: new Date()
 }
-
-//! INFER
-type GetFirst<T> = T extends Array<infer First> ? First : T
-
-type Example00 = GetFirst<number>
-type Example01 = GetFirst<[ '1', 2, 3 ]>
-type Example02 = GetFirst<string>
-type Example03 = GetFirst<[str: string, num: number]>
