@@ -1,8 +1,9 @@
+"use strict";
 // Необходимо типизировать этот большой объект
 // Свойство futureClasses должно быть в зависимости от classes по типу
 // Свойства exClients и futureClients тоже должны быть в зависимости от currClients
 // ИЛИ все три зависят от общего родителя
-var fitnessClubCenter = {
+const fitnessClubCenter = {
     clubName: "Fitness club Center",
     location: "central ave. 45, 5th floor",
     classes: [

@@ -1,3 +1,4 @@
+"use strict";
 //! function print<Type> ( arg: Type ): Type
 //!   return arg
 //! }
@@ -17,16 +18,16 @@ function printArr(arg) {
 function getValueByKey(obj, key) {
     return obj[key];
 }
-var obj = {
+const obj = {
     a: 1,
     b: 2,
     c: 3
 };
 console.log(getValueByKey(obj, 'c'));
-var stringPrint = {
+const stringPrint = {
     key: 'string',
 };
-var numberPrint = {
+const numberPrint = {
     key: 100678
 };
 function printType(arg) {
@@ -37,11 +38,11 @@ function printType(arg) {
 function generalization(data, number) {
     switch (typeof data) {
         case 'string':
-            return "".concat(data.toLocaleUpperCase(), "!");
+            return `${data.toLocaleUpperCase()}!`;
         case 'number':
-            return "".concat(+number + +(data.toFixed(2)));
+            return `${+number + +(data.toFixed(2))}`;
         default:
-            return "No text, no number!";
+            return `No text, no number!`;
     }
 }
 console.log(generalization(100.171261921, 17));

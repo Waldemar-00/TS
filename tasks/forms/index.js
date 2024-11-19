@@ -1,15 +1,16 @@
-var submitEmail = null;
-var submitComment = null;
-var commonData = new FormData();
-var formEmail = document.querySelector('#email');
-var formComment = document.querySelector('#comment');
+"use strict";
+let submitEmail = null;
+let submitComment = null;
+let commonData = new FormData();
+const formEmail = document.querySelector('#email');
+const formComment = document.querySelector('#comment');
 if (formEmail)
-    formEmail.addEventListener('submit', function (e) {
+    formEmail.addEventListener('submit', (e) => {
         e.preventDefault();
         createFormDataEmail();
     });
 if (formComment)
-    formComment.addEventListener('submit', function (e) {
+    formComment.addEventListener('submit', (e) => {
         e.preventDefault();
         createFormDataComment();
     });
@@ -28,7 +29,7 @@ function createFormDataComment() {
     }
 }
 function commonFormData(formData) {
-    formData.forEach(function (value, key) { return commonData.append(key, value); });
+    formData.forEach((value, key) => commonData.append(key, value));
     if (commonData.has('check'))
         console.log('Checkbox is ', commonData.get('check'));
     if (!commonData.has('check'))

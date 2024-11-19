@@ -31,8 +31,8 @@ function playMedia({ name, type, format, subtitles, marks } = {
     }
     console.log(`Media: ${name}
     Format: ${format} is ${type}
-    Marks: ${marksLog !== null && marksLog !== void 0 ? marksLog : ''}
-    Subtitles: ${subtitles !== null && subtitles !== void 0 ? subtitles : "none"}`);
+    Marks: ${marksLog ?? ''}
+    Subtitles: ${subtitles ?? "none"}`);
     return "Media started";
 }
 const statusMedia = playMedia({

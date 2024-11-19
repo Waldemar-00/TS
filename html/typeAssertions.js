@@ -1,6 +1,10 @@
 "use strict";
+//* NodeList
+const listDiv = document.querySelectorAll('div');
 const str = 'some string';
 const newType = str;
+let lst = document.querySelectorAll('div');
+let arr00 = Array.from(lst);
 //* console.log(newType)
 const h1 = document.querySelector('h1');
 //* querySelector has HTMLHeadingElement | null type
@@ -22,7 +26,7 @@ const inputNumber = document.querySelector('.inputNumber');
 //* we are always getting a string, see below
 //? const numberFromInput = inputNumber?.value as any as number
 //! It's real bad code (see up), because value will be always string!!!
-const numberFromInput = inputNumber === null || inputNumber === void 0 ? void 0 : inputNumber.value;
+const numberFromInput = inputNumber?.value;
 console.log(+numberFromInput); //* + Will work in JS
 //* ///////////////////////////////////////////////////////////////////
 //! function

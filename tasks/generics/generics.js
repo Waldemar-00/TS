@@ -1,14 +1,15 @@
-var player1 = {
+"use strict";
+const player1 = {
     game: "CS:GO",
     hours: 300,
     server: "basic",
 };
-var player2 = {
+const player2 = {
     game: 2048,
     hours: "300 h.",
     server: "arcade",
 };
-var player3 = {
+const player3 = {
     game: "Chess",
     hours: {
         total: 500,
@@ -16,31 +17,16 @@ var player3 = {
     },
     server: "chess",
 };
-// Массив данных с фигурами содержит объекты, у каждого из которых обязательно есть свойство name
-// Каждый объект может еще содержать дополнительные свойства в случайном виде
-// Свойство name может иметь только 4 варианта
-// Функция calculateAmountOfFigures должна принимать массив с объектами, у которых обязательно должно быть свойство name
-// Возвращает она объект-экземпляр AmountOfFigures
-// Внутри себя подсчитывает сколько каких фигур было в массиве и записывает результаты в AmountOfFigures
-// С текущими данными в консоль должно попадать:
-// { squares: 3, circles: 2, triangles: 2, others: 1 }
-var Figures;
-(function (Figures) {
-    Figures["Rect"] = "rect";
-    Figures["Circle"] = "circle";
-    Figures["Triangle"] = "triangle";
-    Figures["Line"] = "line";
-})(Figures || (Figures = {}));
 function calculateAmountOfFigures(figure) {
-    var amountFigures = {
+    const amountFigures = {
         squares: 0,
         circles: 0,
         triangles: 0,
         others: 0,
     };
-    figure.forEach(function (obj) {
+    figure.forEach((obj) => {
         switch (obj.name) {
-            case Figures.Rect:
+            case 'rect':
                 amountFigures.squares++;
                 break;
             case 'circle':
@@ -56,7 +42,7 @@ function calculateAmountOfFigures(figure) {
     });
     return amountFigures;
 }
-var datas = [
+const datas = [
     {
         name: "rect",
         data: { a: 5, b: 10 },

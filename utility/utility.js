@@ -1,16 +1,16 @@
+"use strict";
 //! Extract
 //! Exclude
 //! Omit
 //! Pick
 //! Record
-var _a;
-var keySymbol = Symbol('name');
-var keySymbol1 = Symbol('name');
-var a = 'a';
-var someObjetc1 = (_a = {},
-    _a[a] = 100,
-    _a[keySymbol] = 'John',
-    _a[keySymbol1] = 'Ivan',
-    _a.b = 1,
-    _a.c = 'some string',
-    _a);
+const keySymbol = Symbol('name');
+const keySymbol1 = Symbol('name');
+const a = 'a';
+const someObjetc1 = {
+    [a]: 100,
+    [keySymbol]: 'John',
+    [keySymbol1]: 'Ivan',
+    b: 1,
+    c: 'some string'
+};
