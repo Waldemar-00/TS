@@ -19,25 +19,48 @@ class Car_01 implements ICar_01
   {
     return this.open ? 'open' : `closed: ${msg}`
   }
-}
+}``
 //! Decorated the additional methods
-function printFuelInformation (
-    context: object,
-    propertyKey: string | symbol,
-    descriptor: PropertyDescriptor
-  ): PropertyDescriptor | void //! now we will have void
+// function printFuelInformation (
+//     context: object,
+//     propertyKey: string | symbol,
+//     descriptor: PropertyDescriptor
+//   ): PropertyDescriptor | void //! now we will have void
+//   {
+//     const oldFn = descriptor.value
+//     descriptor.value = function (this: any, ...arg: any[]) //! second => this: any
+//     {
+//       console.log( 'I changed method isOpen' )
+//       console.log(this.fuel) //! this: any => here
+//       return oldFn.apply(this, arg)
+//       // return this.open ? 'open' : 'closed' //! second method
+//     }
+//   }
+//! "experimentalDecorators": false
+function printFuelInformation ( constructor: any, context: ClassMethodDecoratorContext )
   {
-    const oldFn = descriptor.value
-    descriptor.value = function (this: any, ...arg: any[]) //! second => this: any
+    return function (this: any, ...arg: any[]) //! second => this: any
     {
       console.log( 'I changed method isOpen' )
       console.log(this.fuel) //! this: any => here
-      return oldFn.apply(this, arg)
-      // return this.open ? 'open' : 'closed' //! second method
+      return constructor.apply(this, arg)
     }
-  }
-
-
+}
+  // function printFuelInformation<T, A extends any[], R> ( constructor: (this: T, ...args: A) => R, context: ClassMethodDecoratorContext<T, (this: T, ...args: A) => R >)
+  // {
+  //   return function (this: T, ...args: A): R //! second => this: any
+  //   {
+  //     console.log( 'I changed method isOpen' )
+  //     console.log( `${ String( context.name ) } was started` )
+  //     // console.log( this.fuel) //! error of type
+  //     return constructor.apply(this, args)
+  //   }
+  // }
+//? @printFuelInformation
+//?   isOpen (msg: string)
+//?   {
+//?     return this.open ? 'open' : `closed: ${msg}`
+//?   }
 function changeDoorStatus1 ( status: boolean )
 {
   return function <T extends { new( ...arg: any[] ): {} }> ( target: T )
