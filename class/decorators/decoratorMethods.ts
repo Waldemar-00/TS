@@ -1,3 +1,4 @@
+//! "experimentalDecorators": true
 interface ICar_01
 {
   fuel: string;
@@ -15,6 +16,7 @@ class Car_01 implements ICar_01
   open: boolean = true;
   @limitSeatsDecorator(1)
   seats: number = 4;
+  _weight: number = 1000
   @printFuelInformation
   isOpen (msg: string)
   {
