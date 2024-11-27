@@ -1,18 +1,4 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+"use strict";
 var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
     var useValue = arguments.length > 2;
     for (var i = 0; i < initializers.length; i++) {
@@ -47,94 +33,113 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
 };
-var __setFunctionName = (this && this.__setFunctionName) || function (f, name, prefix) {
-    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
-    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
-};
-var Car_01 = function () {
-    var _classDecorators = [changeDoorStatus1(false), changeFuelAmount1(75), changeSeatsAmount1(11)];
-    var _classDescriptor;
-    var _classExtraInitializers = [];
-    var _classThis;
-    var _instanceExtraInitializers = [];
-    var _isOpen_decorators;
-    var Car_01 = _classThis = /** @class */ (function () {
-        function Car_01_1() {
-            this.fuel = (__runInitializers(this, _instanceExtraInitializers), '30%');
-            this.open = true;
-            this.seats = 4;
-        }
-        Car_01_1.prototype.isOpen = function (msg) {
-            return this.open ? 'open' : "closed: ".concat(msg);
-        };
-        return Car_01_1;
-    }());
-    __setFunctionName(_classThis, "Car_01");
-    (function () {
-        var _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-        _isOpen_decorators = [printFuelInformation];
-        __esDecorate(_classThis, null, _isOpen_decorators, { kind: "method", name: "isOpen", static: false, private: false, access: { has: function (obj) { return "isOpen" in obj; }, get: function (obj) { return obj.isOpen; } }, metadata: _metadata }, null, _instanceExtraInitializers);
-        __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-        Car_01 = _classThis = _classDescriptor.value;
-        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-        __runInitializers(_classThis, _classExtraInitializers);
-    })();
-    return Car_01 = _classThis;
-}();
+// @changeDoorStatus1( false )
+// @changeFuelAmount1( 75 )
+// @changeSeatsAmount1(11)
+let Car_01 = (() => {
+    var _a;
+    let _instanceExtraInitializers = [];
+    let _seats_decorators;
+    let _seats_initializers = [];
+    let _seats_extraInitializers = [];
+    let _isOpen_decorators;
+    return _a = class Car_01 {
+            isOpen(msg) {
+                return this.open ? 'open' : `closed: ${msg}`;
+            }
+            constructor() {
+                this.fuel = (__runInitializers(this, _instanceExtraInitializers), '30%');
+                this.open = true;
+                this.seats = __runInitializers(this, _seats_initializers, 4);
+                __runInitializers(this, _seats_extraInitializers);
+            }
+        },
+        (() => {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            _seats_decorators = [limitSeatsDecorator(1)];
+            _isOpen_decorators = [printFuelInformation];
+            __esDecorate(_a, null, _isOpen_decorators, { kind: "method", name: "isOpen", static: false, private: false, access: { has: obj => "isOpen" in obj, get: obj => obj.isOpen }, metadata: _metadata }, null, _instanceExtraInitializers);
+            __esDecorate(null, null, _seats_decorators, { kind: "field", name: "seats", static: false, private: false, access: { has: obj => "seats" in obj, get: obj => obj.seats, set: (obj, value) => { obj.seats = value; } }, metadata: _metadata }, _seats_initializers, _seats_extraInitializers);
+            if (_metadata) Object.defineProperty(_a, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        })(),
+        _a;
+})();
+//! property decorators
+function limitSeatsDecorator(limit) {
+    return function (target, propertyKey) {
+        let value;
+        Object.defineProperty(target, propertyKey, {
+            get: () => value,
+            set: (newNumber) => (value >= 0 && value <= limit) ? value = newNumber : console.log('The number is out of range!')
+        });
+    };
+}
 //! Decorated the additional methods
 function printFuelInformation(context, propertyKey, descriptor) {
-    var oldFn = descriptor.value;
-    descriptor.value = function () {
-        var arg = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            arg[_i] = arguments[_i];
-        }
+    const oldFn = descriptor.value;
+    descriptor.value = function (...arg) {
         console.log('I changed method isOpen');
         console.log(this.fuel); //! this: any => here
         return oldFn.apply(this, arg);
         // return this.open ? 'open' : 'closed' //! second method
     };
 }
+//! "experimentalDecorators": false
+// function printFuelInformation ( constructor: any, context: ClassMethodDecoratorContext )
+//   {
+//     return function (this: any, ...arg: any[]) //! second => this: any
+//     {
+//       console.log( 'I changed method isOpen' )
+//       console.log(this.fuel) //! this: any => here
+//       return constructor.apply(this, arg)
+//     }
+// }
+// function printFuelInformation<T, A extends any[], R> ( constructor: (this: T, ...args: A) => R, context: ClassMethodDecoratorContext<T, (this: T, ...args: A) => R >)
+// {
+//   return function (this: T, ...args: A): R //! second => this: any
+//   {
+//     console.log( 'I changed method isOpen' )
+//     console.log( `${ String( context.name ) } was started` )
+//     // console.log( this.fuel) //! error of type
+//     return constructor.apply(this, args)
+//   }
+// }
+//? @printFuelInformation
+//?   isOpen (msg: string)
+//?   {
+//?     return this.open ? 'open' : `closed: ${msg}`
+//?   }
 function changeDoorStatus1(status) {
     return function (target) {
-        return /** @class */ (function (_super) {
-            __extends(class_1, _super);
-            function class_1() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
-                _this.open = status;
-                return _this;
+        return class extends target {
+            constructor() {
+                super(...arguments);
+                this.open = status;
             }
-            return class_1;
-        }(target));
+        };
     };
 }
 function changeFuelAmount1(fuel) {
     return function (target) {
-        return /** @class */ (function (_super) {
-            __extends(class_2, _super);
-            function class_2() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
-                _this.fuel = "".concat(fuel, "%");
-                return _this;
+        return class extends target {
+            constructor() {
+                super(...arguments);
+                this.fuel = `${fuel}%`;
             }
-            return class_2;
-        }(target));
+        };
     };
 }
 function changeSeatsAmount1(seats) {
     return function (target) {
-        return /** @class */ (function (_super) {
-            __extends(class_3, _super);
-            function class_3() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
-                _this.seats = seats;
-                return _this;
+        return class extends target {
+            constructor() {
+                super(...arguments);
+                this.seats = seats;
             }
-            return class_3;
-        }(target));
+        };
     };
 }
-var car_01 = new Car_01();
+const car_01 = new Car_01();
 console.log(car_01.isOpen('for a long time'), car_01.fuel, car_01.seats);
 console.log(car_01);
 //! example

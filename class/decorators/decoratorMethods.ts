@@ -6,46 +6,60 @@ interface ICar_01
   isOpen: (msg: string) => 'open' | string
 }
 
-@changeDoorStatus1( false )
-@changeFuelAmount1( 75 )
-@changeSeatsAmount1(11)
+// @changeDoorStatus1( false )
+// @changeFuelAmount1( 75 )
+// @changeSeatsAmount1(11)
 class Car_01 implements ICar_01
 {
   fuel: string = '30%';
-  open: boolean =  true;
+  open: boolean = true;
+  @limitSeatsDecorator(1)
   seats: number = 4;
   @printFuelInformation
   isOpen (msg: string)
   {
     return this.open ? 'open' : `closed: ${msg}`
   }
-}``
-//! Decorated the additional methods
-// function printFuelInformation (
-//     context: object,
-//     propertyKey: string | symbol,
-//     descriptor: PropertyDescriptor
-//   ): PropertyDescriptor | void //! now we will have void
-//   {
-//     const oldFn = descriptor.value
-//     descriptor.value = function (this: any, ...arg: any[]) //! second => this: any
-//     {
-//       console.log( 'I changed method isOpen' )
-//       console.log(this.fuel) //! this: any => here
-//       return oldFn.apply(this, arg)
-//       // return this.open ? 'open' : 'closed' //! second method
-//     }
-//   }
-//! "experimentalDecorators": false
-function printFuelInformation ( constructor: any, context: ClassMethodDecoratorContext )
+}
+//! property decorators
+
+function limitSeatsDecorator ( limit: number )
+{
+  return function ( target: Object, propertyKey: string | symbol ): void
   {
-    return function (this: any, ...arg: any[]) //! second => this: any
+    let value: number
+    Object.defineProperty( target, propertyKey, {
+      get: () => value,
+      set: ( newNumber: number) => ( value >= 0 && value <= limit ) ? value = newNumber : console.log('The number is out of range!')
+    })
+  }
+}
+//! Decorated the additional methods
+function printFuelInformation (
+    context: object,
+    propertyKey: string | symbol,
+    descriptor: PropertyDescriptor
+  ): PropertyDescriptor | void //! now we will have void
+  {
+    const oldFn = descriptor.value
+    descriptor.value = function (this: any, ...arg: any[]) //! second => this: any
     {
       console.log( 'I changed method isOpen' )
       console.log(this.fuel) //! this: any => here
-      return constructor.apply(this, arg)
+      return oldFn.apply(this, arg)
+      // return this.open ? 'open' : 'closed' //! second method
     }
-}
+  }
+//! "experimentalDecorators": false
+// function printFuelInformation ( constructor: any, context: ClassMethodDecoratorContext )
+//   {
+//     return function (this: any, ...arg: any[]) //! second => this: any
+//     {
+//       console.log( 'I changed method isOpen' )
+//       console.log(this.fuel) //! this: any => here
+//       return constructor.apply(this, arg)
+//     }
+// }
   // function printFuelInformation<T, A extends any[], R> ( constructor: (this: T, ...args: A) => R, context: ClassMethodDecoratorContext<T, (this: T, ...args: A) => R >)
   // {
   //   return function (this: T, ...args: A): R //! second => this: any
