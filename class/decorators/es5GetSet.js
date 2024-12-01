@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // @changeDoorStatus1( false )
 // @changeFuelAmount1( 75 )
 // @changeSeatsAmount1(11)
-class Car_get_set {
+class Car_get_set_es5 {
     constructor() {
         this.fuel = '30%';
         this.open = true;
@@ -25,26 +25,24 @@ class Car_get_set {
     set weight(w) { this._weight += w; }
 }
 __decorate([
-    changeGetSet(),
+    changeGetEs5,
     __metadata("design:type", Object),
     __metadata("design:paramtypes", [Object])
-], Car_get_set.prototype, "weight", null);
-function changeGetSet() {
-    return function (_target, _propertyKey, descriptor) {
-        const oldGet = descriptor.get;
-        const oldSet = descriptor.set;
-        descriptor.get = function () {
-            console.log('Here in the Getter we added a new functional!');
-            return oldGet?.apply(this);
-        };
-        descriptor.set = function (...arg) {
-            console.log(`Here in the Setter we added a new functional! With arguments: ${[...arg]}`);
-            return oldSet?.apply(this, arg);
-        };
+], Car_get_set_es5.prototype, "weight", null);
+function changeGetEs5(target, context) {
+    return function () {
+        console.log('Here in the Getter we added a new functional!');
+        return target.apply(this);
     };
 }
-const car_get_set = new Car_get_set();
-console.log(car_get_set);
-car_get_set.weight = 1000;
-console.log(car_get_set.weight);
-console.log(car_get_set);
+function changeSetEs5(target, context) {
+    return function (...args) {
+        console.log('Here in the Setter we added a new functional!');
+        return target.apply(this, args);
+    };
+}
+const car_get_set_es5 = new Car_get_set_es5();
+console.log(car_get_set_es5);
+car_get_set_es5.weight = 1000;
+console.log(car_get_set_es5.weight);
+console.log(car_get_set_es5);

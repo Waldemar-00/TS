@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 // @changeDoorStatus1( false )
 // @changeFuelAmount1( 75 )
 // @changeSeatsAmount1(11)
@@ -20,10 +23,14 @@ class Car_01 {
     }
 }
 __decorate([
-    limitSeatsDecorator(1)
+    limitSeatsDecorator(1),
+    __metadata("design:type", Number)
 ], Car_01.prototype, "seats", void 0);
 __decorate([
-    printFuelInformation
+    printFuelInformation,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
 ], Car_01.prototype, "isOpen", null);
 //! property decorators
 function limitSeatsDecorator(limit) {
@@ -36,7 +43,7 @@ function limitSeatsDecorator(limit) {
     };
 }
 //! Decorated the additional methods
-function printFuelInformation(context, propertyKey, descriptor) {
+function printFuelInformation(target, propertyKey, descriptor) {
     const oldFn = descriptor.value;
     descriptor.value = function (...arg) {
         console.log('I changed method isOpen');
@@ -71,8 +78,8 @@ function printFuelInformation(context, propertyKey, descriptor) {
 //?     return this.open ? 'open' : `closed: ${msg}`
 //?   }
 function changeDoorStatus1(status) {
-    return function (target) {
-        return class extends target {
+    return function (constructor) {
+        return class extends constructor {
             constructor() {
                 super(...arguments);
                 this.open = status;
@@ -81,8 +88,8 @@ function changeDoorStatus1(status) {
     };
 }
 function changeFuelAmount1(fuel) {
-    return function (target) {
-        return class extends target {
+    return function (constructor) {
+        return class extends constructor {
             constructor() {
                 super(...arguments);
                 this.fuel = `${fuel}%`;

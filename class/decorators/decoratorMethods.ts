@@ -38,7 +38,7 @@ function limitSeatsDecorator ( limit: number )
 }
 //! Decorated the additional methods
 function printFuelInformation (
-    context: object,
+    target: Object,
     propertyKey: string | symbol,
     descriptor: PropertyDescriptor
   ): PropertyDescriptor | void //! now we will have void
@@ -79,10 +79,10 @@ function printFuelInformation (
 //?   }
 function changeDoorStatus1 ( status: boolean )
 {
-  return function <T extends { new( ...arg: any[] ): {} }> ( target: T )
+  return function <T extends { new( ...arg: any[] ): {} }> ( constructor: T )
   //? SECOND ARGUMENT => context: ClassDecoratorContext<T>
   {
-    return class extends target
+    return class extends constructor
     {
       open = status
     }
@@ -90,10 +90,10 @@ function changeDoorStatus1 ( status: boolean )
 }
 function changeFuelAmount1 ( fuel: number )
 {
-  return function <T extends { new( ...arg: any[] ): {} }> ( target: T )
+  return function <T extends { new( ...arg: any[] ): {} }> ( constructor: T )
   //? SECOND ARGUMENT => context: ClassDecoratorContext<T>
   {
-    return class extends target
+    return class extends constructor
     {
       fuel = `${fuel}%`
     }
