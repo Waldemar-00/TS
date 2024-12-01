@@ -38,8 +38,6 @@ class ShippingContainer implements ICuboid {
 		return this.width * this.length * this.height * (multiply ? multiply : 1);
 	}
 }
-// 1. Необходимо создать декоратор класса, который будет записывать дату создания контейнера
-// Простыми словами - создавать в нем новое свойство createdAt с датой создания экземпляра
 function addDate<T extends {new (...args: any[]):{}}> (constructor: T)
 {
 	return class extends constructor
@@ -47,21 +45,18 @@ function addDate<T extends {new (...args: any[]):{}}> (constructor: T)
 		date = new Date().toTimeString()
 	}
 }
-// 2. Необходимо создать декораторы IsInt, Min и Max, которые будут валидировать свойства класса
-// Применение смотрите в самом классе. При ошибке выполняйте throw new Error
-// IsInt проверяет на то, что было передано целое число
 function isInt ()
 {
 	return function (target: Object, propertyKey: string | symbol)
 	{
-		let symbol = Symbol('integer')
-		function getter ( this: any )
+		let value: number
+		function getter ()
 		{
-			return this[symbol]
+			return value
 		}
-		function setter ( this: any, newNumber: number )
+		function setter ( newNumber: number )
 		{
-			if ( Number.isInteger( newNumber ) ) this[ symbol ] = newNumber
+			if ( Number.isInteger( newNumber ) ) value = newNumber
 			else console.log('The number is not integer')
 		}
 		Object.defineProperty( target, propertyKey, {
@@ -76,14 +71,14 @@ function min (min: number)
 {
 	return function ( target: Object, propertyKey: string | symbol )
 	{
-		let symbol = Symbol( 'min' )
-		function getter ( this: any )
+		let value: number
+		function getter ()
 		{
-			return this[symbol]
+			return value
 		}
-		function setter ( this: any, newNumber: number )
+		function setter ( newNumber: number  )
 		{
-			if ( newNumber >= min ) this[ symbol ] = newNumber
+			if ( newNumber >= min ) value = newNumber
 			else console.log(`The number must be smaller or equal to the minimum: ${min}`)
 		}
 		Object.defineProperty( target, propertyKey, {
@@ -98,14 +93,14 @@ function max (max: number)
 {
 	return function ( target: Object, propertyKey: string | symbol )
 	{
-		let symbol = Symbol( 'max' )
-		function getter ( this: any )
+		let value: number
+		function getter ()
 		{
-			return this[symbol]
+			return value
 		}
-		function setter ( this: any, newNumber: number )
+		function setter ( newNumber: number )
 		{
-			if ( newNumber <= max ) this[ symbol ] = newNumber
+			if ( newNumber <= max ) value = newNumber
 			else console.log(`The number must be smaller or equal the maximum: ${max}`)
 		}
 		Object.defineProperty( target, propertyKey, {
@@ -116,9 +111,6 @@ function max (max: number)
 		})
 	}
 }
-// ИЛИ менять содержимое свойства класса lastCalculation
-// Как значение записывать в него строку , "Последний подсчет ${method} был ${Дата}"
-// Где method - это название подсчета, который передается при вызове декоратора (площадь или объем)
 function lastCalculation (method: string)
 {
 	return function ( target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor )
@@ -139,12 +131,6 @@ container.width = 11.5
 container.width = 9
 container.width = 112
 console.log( container )
-
-//* for ( let prop of Object.keys( container ) )
-//* {
-//* 	console.log(prop)
-
-//* }
-//* for ( let prop in container )
-//* {
-//* 	console.log(prop)
+console.log( container.width )
+console.log( container.length )
+console.log( container.height )

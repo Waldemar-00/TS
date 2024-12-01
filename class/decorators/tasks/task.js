@@ -28,6 +28,18 @@ __decorate([
     __metadata("design:type", Number)
 ], ShippingContainer.prototype, "width", void 0);
 __decorate([
+    isInt(),
+    min(10),
+    max(100),
+    __metadata("design:type", Number)
+], ShippingContainer.prototype, "length", void 0);
+__decorate([
+    isInt(),
+    min(1),
+    max(10),
+    __metadata("design:type", Number)
+], ShippingContainer.prototype, "height", void 0);
+__decorate([
     lastCalculation('calcArea'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -58,17 +70,19 @@ function addDate(constructor) {
 // IsInt проверяет на то, что было передано целое число
 function isInt() {
     return function (target, propertyKey) {
-        let symbol = Symbol('integer');
+        let value;
         function getter() {
-            return this[symbol];
+            return this[value];
         }
         function setter(newNumber) {
             if (Number.isInteger(newNumber))
-                this[symbol] = newNumber;
+                this[value] = newNumber;
             else
                 console.log('The number is not integer');
         }
         Object.defineProperty(target, propertyKey, {
+            enumerable: true,
+            configurable: true,
             get: getter,
             set: setter
         });
@@ -76,17 +90,19 @@ function isInt() {
 }
 function min(min) {
     return function (target, propertyKey) {
-        let symbol = Symbol('min');
+        let value;
         function getter() {
-            return this[symbol];
+            return this[value];
         }
         function setter(newNumber) {
             if (newNumber >= min)
-                this[symbol] = newNumber;
+                this[value] = newNumber;
             else
                 console.log(`The number must be smaller or equal to the minimum: ${min}`);
         }
         Object.defineProperty(target, propertyKey, {
+            enumerable: true,
+            configurable: true,
             get: getter,
             set: setter
         });
@@ -94,17 +110,19 @@ function min(min) {
 }
 function max(max) {
     return function (target, propertyKey) {
-        let symbol = Symbol('max');
+        let value;
         function getter() {
-            return this[symbol];
+            return this[value];
         }
         function setter(newNumber) {
             if (newNumber <= max)
-                this[symbol] = newNumber;
+                this[value] = newNumber;
             else
                 console.log(`The number must be smaller or equal the maximum: ${max}`);
         }
         Object.defineProperty(target, propertyKey, {
+            enumerable: true,
+            configurable: true,
             get: getter,
             set: setter
         });
@@ -126,16 +144,11 @@ function lastCalculation(method) {
 const container = new ShippingContainer(20, 500, 30);
 console.log(container.calcArea());
 console.log(container.calcVolume());
-console.log(container);
 container.width = 11.5;
 container.width = 9;
 container.width = 112;
-console.log(container.width);
-// Object.defineProperty( container, 'calcVolume', {
-// 	value: () => console.log('Change method with Object.Defineproperty()')
-// } )
-// container.calcVolume()
-// console.log( container.date )
-// container.width = 0;
-// container.height = 5;
-// console.log(container.calcVolume());
+console.log(container);
+// for ( let prop in container )
+// {
+// 	console.log(prop)
+// }
