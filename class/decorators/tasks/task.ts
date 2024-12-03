@@ -1,4 +1,4 @@
-// import "reflect-metadata"
+import "reflect-metadata"
 interface ICuboid
 {
 	width: number;
@@ -20,14 +20,17 @@ class ShippingContainer implements ICuboid {
 	length: number;
 
 	@isInt()
-	@min( 1 )
-	@max( 10 )
+	@min( 10 )
+	@max( 100 )
 	height: number;
 
 	constructor(width: number, length: number, height: number) {
 		this.width = width;
 		this.length = length;
 		this.height = height;
+		validate( this, 'width', width )
+		validate( this, 'length', length )
+		validate( this, 'height', height)
 	}
 	@lastCalculation('calcArea')
 	calcArea(multiply?: number): number {
@@ -38,77 +41,15 @@ class ShippingContainer implements ICuboid {
 		return this.width * this.length * this.height * (multiply ? multiply : 1);
 	}
 }
+interface addedProperties  {
+	date: Date,
+	lastCalculation: string
+}
 function addDate<T extends {new (...args: any[]):{}}> (constructor: T)
 {
 	return class extends constructor
 	{
 		date = new Date().toTimeString()
-	}
-}
-function isInt ()
-{
-	return function (target: Object, propertyKey: string | symbol)
-	{
-		let value: number
-		function getter ()
-		{
-			return value
-		}
-		function setter ( newNumber: number )
-		{
-			if ( Number.isInteger( newNumber ) ) value = newNumber
-			else console.log('The number is not integer')
-		}
-		Object.defineProperty( target, propertyKey, {
-			enumerable: true,
-			configurable: true,
-			get: getter,
-			set: setter
-		})
-	}
-}
-function min (min: number)
-{
-	return function ( target: Object, propertyKey: string | symbol )
-	{
-		let value: number
-		function getter ()
-		{
-			return value
-		}
-		function setter ( newNumber: number  )
-		{
-			if ( newNumber >= min ) value = newNumber
-			else console.log(`The number must be smaller or equal to the minimum: ${min}`)
-		}
-		Object.defineProperty( target, propertyKey, {
-			enumerable: true,
-			configurable: true,
-			get: getter,
-			set: setter
-		})
-	}
-}
-function max (max: number)
-{
-	return function ( target: Object, propertyKey: string | symbol )
-	{
-		let value: number
-		function getter ()
-		{
-			return value
-		}
-		function setter ( newNumber: number )
-		{
-			if ( newNumber <= max ) value = newNumber
-			else console.log(`The number must be smaller or equal the maximum: ${max}`)
-		}
-		Object.defineProperty( target, propertyKey, {
-			enumerable: true,
-			configurable: true,
-			get: getter,
-			set: setter
-		})
 	}
 }
 function lastCalculation (method: string)
@@ -124,13 +65,62 @@ function lastCalculation (method: string)
 		}
 	}
 }
-const container = new ShippingContainer( 20, 500, 30 );
+function isInt ()
+{
+	return function (target: Object, propertyKey: string | symbol)
+	{
+		Reflect.defineMetadata('isInt', true, target, propertyKey)
+	}
+}
+function min (min: number)
+{
+	return function ( target: Object, propertyKey: string | symbol )
+	{
+		Reflect.defineMetadata('min', min, target, propertyKey)
+	}
+}
+function max (max: number)
+{
+	return function ( target: Object, propertyKey: string | symbol )
+	{
+		Reflect.defineMetadata('max', max, target, propertyKey)
+	}
+}
+
+function validate (target: any, propertyKey: string | symbol, value: any): boolean
+{
+	if ( Reflect.hasMetadata( 'isInt', target, propertyKey ) && !Number.isInteger( value ) )
+	{
+		throw new Error(`The ${propertyKey.toString()} is not interger!`)
+	}
+	if ( Reflect.hasMetadata( 'min', target, propertyKey ) && value < Reflect.getMetadata( 'min', target, propertyKey ) )
+	{
+		throw new Error(`The ${propertyKey.toString()} is smaller than range!`)
+	}
+	if ( Reflect.hasMetadata( 'max', target, propertyKey ) && value > Reflect.getMetadata( 'max', target, propertyKey ) )
+	{
+		throw new Error(`The ${propertyKey.toString()} is larger than range`)
+	}
+	return true
+}
+function finalValidate (obj: unknown)
+{
+	if ( obj && typeof obj === 'object' && !Array.isArray( obj ) )
+	{
+		for ( let key in obj )
+		{
+			validate(obj, key, obj[ key as keyof typeof obj ] )
+		}
+	}
+}
+const container = new ShippingContainer( 10, 90, 30 ) as ICuboid & addedProperties
 console.log(container.calcArea())
 console.log(container.calcVolume())
-container.width = 11.5
-container.width = 9
-container.width = 112
+container.width = 70
+container.width = 11
+container.width = 99
+finalValidate(container)
 console.log( container )
+console.log( container.date )
+console.log( container.lastCalculation )
 console.log( container.width )
-console.log( container.length )
-console.log( container.height )

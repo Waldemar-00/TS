@@ -8,11 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+require("reflect-metadata");
 let ShippingContainer = class ShippingContainer {
     constructor(width, length, height) {
         this.width = width;
         this.length = length;
         this.height = height;
+        validate(this, 'width', width);
+        validate(this, 'length', length);
+        validate(this, 'height', height);
     }
     calcArea(multiply) {
         return this.width * this.length * (multiply ? multiply : 1);
@@ -35,8 +40,8 @@ __decorate([
 ], ShippingContainer.prototype, "length", void 0);
 __decorate([
     isInt(),
-    min(1),
-    max(10),
+    min(10),
+    max(100),
     __metadata("design:type", Number)
 ], ShippingContainer.prototype, "height", void 0);
 __decorate([
@@ -55,8 +60,6 @@ ShippingContainer = __decorate([
     addDate,
     __metadata("design:paramtypes", [Number, Number, Number])
 ], ShippingContainer);
-// 1. Необходимо создать декоратор класса, который будет записывать дату создания контейнера
-// Простыми словами - создавать в нем новое свойство createdAt с датой создания экземпляра
 function addDate(constructor) {
     return class extends constructor {
         constructor() {
@@ -65,72 +68,6 @@ function addDate(constructor) {
         }
     };
 }
-// 2. Необходимо создать декораторы IsInt, Min и Max, которые будут валидировать свойства класса
-// Применение смотрите в самом классе. При ошибке выполняйте throw new Error
-// IsInt проверяет на то, что было передано целое число
-function isInt() {
-    return function (target, propertyKey) {
-        let value;
-        function getter() {
-            return this[value];
-        }
-        function setter(newNumber) {
-            if (Number.isInteger(newNumber))
-                this[value] = newNumber;
-            else
-                console.log('The number is not integer');
-        }
-        Object.defineProperty(target, propertyKey, {
-            enumerable: true,
-            configurable: true,
-            get: getter,
-            set: setter
-        });
-    };
-}
-function min(min) {
-    return function (target, propertyKey) {
-        let value;
-        function getter() {
-            return this[value];
-        }
-        function setter(newNumber) {
-            if (newNumber >= min)
-                this[value] = newNumber;
-            else
-                console.log(`The number must be smaller or equal to the minimum: ${min}`);
-        }
-        Object.defineProperty(target, propertyKey, {
-            enumerable: true,
-            configurable: true,
-            get: getter,
-            set: setter
-        });
-    };
-}
-function max(max) {
-    return function (target, propertyKey) {
-        let value;
-        function getter() {
-            return this[value];
-        }
-        function setter(newNumber) {
-            if (newNumber <= max)
-                this[value] = newNumber;
-            else
-                console.log(`The number must be smaller or equal the maximum: ${max}`);
-        }
-        Object.defineProperty(target, propertyKey, {
-            enumerable: true,
-            configurable: true,
-            get: getter,
-            set: setter
-        });
-    };
-}
-// ИЛИ менять содержимое свойства класса lastCalculation
-// Как значение записывать в него строку , "Последний подсчет ${method} был ${Дата}"
-// Где method - это название подсчета, который передается при вызове декоратора (площадь или объем)
 function lastCalculation(method) {
     return function (target, propertyKey, descriptor) {
         let oldMethod = descriptor.value;
@@ -141,14 +78,48 @@ function lastCalculation(method) {
         };
     };
 }
-const container = new ShippingContainer(20, 500, 30);
+function isInt() {
+    return function (target, propertyKey) {
+        Reflect.defineMetadata('isInt', true, target, propertyKey);
+    };
+}
+function min(min) {
+    return function (target, propertyKey) {
+        Reflect.defineMetadata('min', min, target, propertyKey);
+    };
+}
+function max(max) {
+    return function (target, propertyKey) {
+        Reflect.defineMetadata('max', max, target, propertyKey);
+    };
+}
+function validate(target, propertyKey, value) {
+    if (Reflect.hasMetadata('isInt', target, propertyKey) && !Number.isInteger(value)) {
+        throw new Error(`The ${propertyKey.toString()} is not interger!`);
+    }
+    if (Reflect.hasMetadata('min', target, propertyKey) && value < Reflect.getMetadata('min', target, propertyKey)) {
+        throw new Error(`The ${propertyKey.toString()} is smaller than range!`);
+    }
+    if (Reflect.hasMetadata('max', target, propertyKey) && value > Reflect.getMetadata('max', target, propertyKey)) {
+        throw new Error(`The ${propertyKey.toString()} is larger than range`);
+    }
+    return true;
+}
+function finalValidate(obj) {
+    if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
+        for (let key in obj) {
+            validate(obj, key, obj[key]);
+        }
+    }
+}
+const container = new ShippingContainer(10, 90, 30);
 console.log(container.calcArea());
 console.log(container.calcVolume());
-container.width = 11.5;
-container.width = 9;
-container.width = 112;
+container.width = 70;
+container.width = 11;
+container.width = 99;
+finalValidate(container);
 console.log(container);
-// for ( let prop in container )
-// {
-// 	console.log(prop)
-// }
+console.log(container.date);
+console.log(container.lastCalculation);
+console.log(container.width);
